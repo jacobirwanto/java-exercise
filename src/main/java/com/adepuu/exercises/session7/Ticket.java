@@ -1,30 +1,44 @@
 package com.adepuu.exercises.session7;
 
-import java.util.UUID;
+class Ticket {
+    private String name;
+    private double price;
+    private boolean isBooked;
+    private static int totalTicketsSold = 0;
 
-public class Ticket {
-    private final String ID;
-    private String eventID;
-
-    public Ticket() {
-        this("");
+    public Ticket(String name, double price) {
+        this.name = name;
+        this.price = price;
+        this.isBooked = false;
+        totalTicketsSold++;
     }
 
-    public Ticket(String eventID) {
-        UUID uuid = UUID.randomUUID();
-        this.ID = uuid.toString();
-        this.eventID = eventID;
+    public String getName() {
+        return name;
     }
 
-    public String getID() {
-        return ID;
+    public double getPrice() {
+        return price;
     }
 
-    public String getEventID() {
-        return eventID;
+    public boolean isBooked() {
+        return isBooked;
     }
 
-    public void setEventID(String eventID) {
-        this.eventID = eventID;
+    public void bookTicket() {
+        if (!isBooked) {
+            isBooked = true;
+            System.out.println("Ticket for " + name + " has been booked successfully.");
+        } else {
+            System.out.println("Ticket for " + name + " is already booked.");
+        }
+    }
+
+    public static int getTotalTicketsSold() {
+        return totalTicketsSold;
+    }
+
+    public static int getAvailableTickets() {
+        return totalTicketsSold - BookedTicket.getTotalBookedTickets();
     }
 }
