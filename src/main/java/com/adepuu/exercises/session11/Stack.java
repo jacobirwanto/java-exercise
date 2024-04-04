@@ -1,21 +1,72 @@
 package com.adepuu.exercises.session11;
 
-public class Stack {
-    /**
-     * Write a Java stack program that can scale dynamically
-     * <p>
-     * As a developer, I want to implement a Java stack program that can scale dynamically using a linked list, so that I can efficiently manage data storage and retrieval in my applications.
-     * Notes:
-     * The program doesn't require a menu system; focus should be on data structure implementation.
-     * <p>
-     * Acceptance Criteria:
-     * - Functionality: The program must be able to perform basic stack operations (push, pop, peek) on a linked list.
-     * - Dynamic Scaling: The stack should automatically scale in size as elements are added or removed, without any manual resizing required by the user.
-     * - Performance: The program should maintain constant time complexity for push and pop operations, ensuring efficient data management.
-     * - Memory Efficiency: The stack should use memory efficiently, allocating and deallocating memory dynamically as needed.
-     * - Error Handling: The program should handle edge cases gracefully, such as attempting to pop an element from an empty stack, and provide clear error messages.
-     */
-    public static void main(String[] args) {
+class Node {
+    int data;
+    Node next;
 
+    public Node(int data) {
+        this.data = data;
+        this.next = null;
     }
 }
+
+public class Stack {
+    private Node top;
+    private int size;
+
+    public Stack() {
+        top = null;
+        size = 0;
+    }
+
+    public boolean isEmpty() {
+        return top == null;
+    }
+
+    public void push(int data) {
+        Node newNode = new Node(data);
+        newNode.next = top;
+        top = newNode;
+        size++;
+    }
+
+    public int pop() {
+        if (isEmpty()) {
+            System.out.println("Error: Stack is empty");
+            return -1;
+        }
+        int data = top.data;
+        top = top.next;
+        size--;
+        return data;
+    }
+
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Error: Stack is empty");
+            return -1;
+        }
+        return top.data;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public static void main(String[] args) {
+        Stack stack = new Stack();
+
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        stack.push(5);
+
+        System.out.println("Top element: " + stack.peek());
+
+        System.out.println("Popped element: " + stack.pop());
+        System.out.println("Popped element: " + stack.pop());
+
+        System.out.println("Size of stack: " + stack.size());
+    }
+}
+
